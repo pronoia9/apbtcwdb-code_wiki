@@ -86,4 +86,30 @@ app.route('/artiles')
 ////////////////////////////////////////////////////////////////////////////////
 
 
+/////////////////////////////////  ARTICLE/?  //////////////////////////////////
+app.route('/articles/:articleTitle')
+.get(function(req, res) {
+  Article.findOne({title: req.params.articleTitle}, function(err, article) {
+    if (!err) {
+      res.send(article);
+    } else {
+      res.send("No articles matching that title was found.");
+    }
+  });
+})
+
+.put(function(req, res) {
+  //
+})
+
+.patch(function(req, res) {
+  //
+})
+
+.delete(function(req, res) {
+  //
+});
+////////////////////////////////////////////////////////////////////////////////
+
+
 app.listen(process.env.PORT || 3000, () => console.log("Server is running..."));
