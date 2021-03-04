@@ -47,4 +47,18 @@ const Article = mongoose.model("article", articlesSchema);
 ////////////////////////////////////////////////////////////////////////////////
 
 
+//////////////////////////////////  ARTICLES  //////////////////////////////////
+app.get ("/articles", function(req, res) {
+  Article.find({}, function(err, articles) {
+    if (!err) {
+      res.send(articles);
+    }
+    else {
+      res.send(err);
+    }
+  });
+});
+////////////////////////////////////////////////////////////////////////////////
+
+
 app.listen(process.env.PORT || 3000, () => console.log("Server is running..."));
