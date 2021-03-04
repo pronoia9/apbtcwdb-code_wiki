@@ -48,41 +48,41 @@ const Article = mongoose.model("article", articlesSchema);
 
 
 //////////////////////////////////  ARTICLES  //////////////////////////////////
-app.get ("/articles", function(req, res) {
-  Article.find({}, function(err, articles) {
-    if (!err) {
-      res.send(articles);
-    }
-    else {
-      res.send(err);
-    }
-  });
-});
+app.route('/artiles')
+  .get(function(req, res) {
+    Article.find({}, function(err, articles) {
+      if (!err) {
+        res.send(articles);
+      } else {
+        res.send(err);
+      }
+    });
+  })
 
-app.post("/articles", function(req, res) {
-  const article = new Article ({
-    title: req.query.title,
-    content: req.query.content
-  });
+  .post(function(req, res) {
+    const article = new Article({
+      title: req.query.title,
+      content: req.query.content
+    })
 
-  article.save(function(err) {
-    if (!err) {
-      res.send("Successfully added a new article.");
-    } else {
-      res.send(err);
-    }
-  });
-});
+    article.save(function(err) {
+      if (!err) {
+        res.send("Successfully added a new article.");
+      } else {
+        res.send(err);
+      }
+    });
+  })
 
-app.delete("/articles", function(req, res) {
-  Article.deleteMany(function(err) {
-    if (!err) {
-      res.send("Successfully deleted all articles.");
-    } else {
-      res.send(err);
-    }
+  .delete(function(req, res) {
+    Article.deleteMany(function(err) {
+      if (!err) {
+        res.send("Successfully deleted all articles.");
+      } else {
+        res.send(err);
+      }
+    });
   });
-});
 ////////////////////////////////////////////////////////////////////////////////
 
 
