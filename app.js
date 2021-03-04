@@ -102,7 +102,7 @@ app.route('/articles/:articleTitle')
     Article.updateOne(
       { title: req.params.articleTitle },
       { title: req.query.title, content: req.query.content },
-      { overwrite: true, runValidators: true, context: 'query' },
+      { overwrite: true },
       function(err, article) {
       if (!err) {
         res.send("Successfully updated the article.");
@@ -126,7 +126,13 @@ app.route('/articles/:articleTitle')
 })
 
 .delete(function(req, res) {
-  //
+  Article.deleteOne({ title: req.params.articleTitle }, function(err) {
+    if (!err) {
+      res.send("Successfully deleted the article.");
+    } else {
+      res.send(err);
+    }
+  });
 });
 ////////////////////////////////////////////////////////////////////////////////
 
