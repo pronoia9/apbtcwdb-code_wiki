@@ -73,6 +73,16 @@ app.post("/articles", function(req, res) {
     }
   });
 });
+
+app.delete("/articles", function(req, res) {
+  Article.deleteMany(function(err) {
+    if (!err) {
+      res.send("Successfully deleted all articles.");
+    } else {
+      res.send(err);
+    }
+  });
+});
 ////////////////////////////////////////////////////////////////////////////////
 
 
