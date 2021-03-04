@@ -48,7 +48,7 @@ const Article = mongoose.model("article", articlesSchema);
 
 
 //////////////////////////////////  ARTICLES  //////////////////////////////////
-app.route('/artiles')
+app.route('/articles')
   .get(function(req, res) {
     Article.find({}, function(err, articles) {
       if (!err) {
@@ -89,7 +89,7 @@ app.route('/artiles')
 /////////////////////////////////  ARTICLE/?  //////////////////////////////////
 app.route('/articles/:articleTitle')
 .get(function(req, res) {
-  Article.findOne({title: req.params.articleTitle}, function(err, article) {
+  Article.findOne({ title: req.params.articleTitle }, function(err, article) {
     if (!err) {
       res.send(article);
     } else {
@@ -99,7 +99,17 @@ app.route('/articles/:articleTitle')
 })
 
 .put(function(req, res) {
-  //
+    Article.updateOne(
+      { title: req.params.articleTitle },
+      { title: req.query.title, content: req.query.content },
+      { overwrite: true, runValidators: true, context: 'query' },
+      function(err, article) {
+      if (!err) {
+        res.send("Successfully updated the article.");
+      } else {
+        res.send(err);
+      }
+    });
 })
 
 .patch(function(req, res) {
