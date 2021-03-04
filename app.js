@@ -113,7 +113,16 @@ app.route('/articles/:articleTitle')
 })
 
 .patch(function(req, res) {
-  //
+  Article.updateOne(
+    { title: req.params.articleTitle },
+    { $set: req.query },
+    function(err, article) {
+      if (!err) {
+        res.send("Successfully updated the article.");
+      } else {
+        res.send(err);
+      }
+    });
 })
 
 .delete(function(req, res) {
